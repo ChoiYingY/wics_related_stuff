@@ -1,0 +1,10 @@
+# misc
+.DS_Store
+
+# folders
+responses
+subscribers
+
+# output files
+*.xlsx
+*.csv

@@ -38,7 +38,7 @@ def validate_file_columns(filename, dataframe):
 
 '''
     Compile names from a given excel file (.xlsx)
-    Assumes all sheets have columns names 'First Name', 'Last Name', 'Year', and 'Email'
+    Assume all sheets have columns names 'First Name', 'Last Name', 'Year', and 'Email'
 
     Note:
     - If the required column(s) is not found from excel sheet, please check all column names from current excel sheet when you receive such error!
@@ -72,7 +72,7 @@ def get_data_from(file):
 
 '''
     Compile emails from a given excel file (.xlsx)
-    Assumes all sheets have column name 'Email'
+    Assume all sheets have column name 'Email'
 
     Note:
     - If 'Email' column is not found from excel sheet, please check column name for emails from current excel sheet when you receive such error!
@@ -97,11 +97,13 @@ def get_emails_from(file):
     Populate attendance values for event in given excel file (.xlsx)
     Values: [1 = attended, 0 = no attendance]
 
-    Assumes all filenames are named by one of the following formats, ignoring case:
+    Assume all filenames are named by one of the following formats, ignoring case:
         1) event_name.xlsx
         2) Copy of event_name.xlsx
         3) Copy of event_name (Responses).xlsx
         4) event_name (Responses).xlsx
+
+    Also assume all ':' in file names have converted to '_' when downloading xlsx file from drive
 '''
 def populate_attendance_for(file):
     # Make all values 0 by default
@@ -127,6 +129,9 @@ def populate_attendance_for(file):
         event_name = match.group(1)
     else:
         raise Exception(f"failed to parse event name by regex. Please check name format for current file '{file}'.")
+
+    # Replace _ as : because 
+    event_name = event_name.replace('_', ':')
 
     print(f'Processing event: {event_name}...')
 
@@ -195,7 +200,6 @@ if __name__== '__main__':
                 populate_attendance_for(input_file_path)
 
         # Sum of total #events that each students have attended
-        all_columns = VOTING_RESULTS.columns
         event_columns = [col for col in VOTING_RESULTS.columns if col != 'Email' and col != 'Name' and col != 'Year']
         VOTING_RESULTS['Total #events attended'] = VOTING_RESULTS[event_columns].eq(1).sum(axis=1)
         
@@ -208,7 +212,7 @@ if __name__== '__main__':
         writer.close()
 
         print(f'\nFinal Dataframe:\n{VOTING_RESULTS}')
-        print(f'\nResults saved to {OUTPUT}')
+        print(f"\nResult has been saved to '{OUTPUT}' successfully!")
     except Exception as e:
         print(f'ERROR: {e}')
         sys.exit()

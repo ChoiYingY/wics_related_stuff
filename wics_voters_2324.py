@@ -206,6 +206,20 @@ if __name__== '__main__':
         # Sort result by total #events attended in descending order
         VOTING_RESULTS = VOTING_RESULTS.sort_values(by='Total #events attended', ascending=False)
 
+        # re-arrange dataframe column display order by email, name, year, all events in chronological order (manual input) & total #events attended
+        display_col_order = [
+            'Email', 'Name', 'Year',
+            'GBM 1: Icebreakers',
+            'Workathon #1: WiCS-le While You Work!',
+            'Fall 2023 Technology & Engineering Mixer',
+            'Workathon #2: Study-o Ghibli Night',
+            'WiCS x SHPE: A LOT(ería) to Learn',
+            'Navigating FinTech Careers with Barclays and WiCS',
+            'Create A Standout Technical Resume with Oscar Health',
+            'Total #events attended'
+        ]
+        VOTING_RESULTS = VOTING_RESULTS[display_col_order]
+
         # Write result to output excel sheet
         writer = pd.ExcelWriter(OUTPUT, engine='xlsxwriter')
         VOTING_RESULTS.to_excel(writer, sheet_name='Active Roster', index=False)

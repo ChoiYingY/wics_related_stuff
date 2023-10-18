@@ -53,9 +53,9 @@ def get_data_from(file):
     validate_file_columns(file, df)
     
     for i in df.index:
-        # Obtain student first name, last name to create full name
-        first_name = df['First Name'][i].strip()
-        last_name = df['Last Name'][i].strip()
+        # Obtain student first name, last name to create capitalized full name
+        first_name = df['First Name'][i].strip().title()
+        last_name = df['Last Name'][i].strip().title()
         full_name = first_name + ' ' + last_name
 
         # Obtain student email & use it to find its corresponding position in result array
@@ -78,7 +78,7 @@ def get_data_from(file):
     - If 'Email' column is not found from excel sheet, please check column name for emails from current excel sheet when you receive such error!
 '''
 def get_emails_from(file):
-    df = pd.read_excel(file)
+    global emails
 
     # Read excel sheet as dataframe & validate if column 'Email' exists
     df = pd.read_excel(file)

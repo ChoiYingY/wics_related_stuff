@@ -1,28 +1,21 @@
 import csv
 import sys
 import os
+import pandas as pd
 
 '''
     Helper functions
 '''
 # Read response & save a contact list of students who wants to subscribe WiCS newsletter
 def addSubscribers(event_response_csv):
-    new_subscriber_list = []
-    with open(event_response_csv, newline='') as fp:
-        csv_reader = csv.reader(fp)
-        
-        # Iterate through the rows in the CSV file
-        for fields in csv_reader:
-            email = fields[1].strip()
-            last_name = fields[2].strip()
-            first_name = fields[3].strip()
-            will_subscribe = fields[6].strip()
+    df = pd.read_csv(event_response_csv)
 
-            if will_subscribe.lower() == 'yes':
-                subscriber = [email, first_name, last_name]
-                new_subscriber_list.append(subscriber)
+    # save email & name of all members who agreed to subscribe
+    df = df[df['Do you want to be added to the WiCS mailing list?'] == 'Yes']
+    df.rename(columns={'Email': 'Email Address'}, inplace=True)
+    df = df[['Email Address', 'First Name', 'Last Name']]
 
-    return new_subscriber_list
+    return df
 
 # Save contact of all subscribers into a separate csv file
 def saveSubscriberContact(subscriber_list, file_name):
@@ -33,14 +26,7 @@ def saveSubscriberContact(subscriber_list, file_name):
         os.makedirs(output_directory)
     output_csv_file_path = os.path.join(output_directory, f'{file_name}_subscriber.csv')
 
-    # Write contact to output CSV file
-    with open(output_csv_file_path, mode='w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
-
-        csv_writer.writerow(['Email Address', 'First Name', 'Last Name'])
-        for subscriber in subscriber_list:
-            csv_writer.writerow(subscriber)
-
+    subscriber_list.to_csv(output_csv_file_path, index=False)
     print('All future subscriber contacts have been saved.')
 
 '''
@@ -52,7 +38,8 @@ if __name__ == '__main__':
         exit(1)
     else:
         event_response_csv = sys.argv[1].strip()
-        file_path = event_response_csv.split('.')[0]
-        file_name = file_path.split('/')[-1]
+        file_path = event_response_csv.split('.')[0].strip()
+        file_name = file_path.split('/')[-1].strip()
         subscriber_list = addSubscribers(event_response_csv)
+        print(f'\nnew_subscriber_list:\n{subscriber_list}\n')
         saveSubscriberContact(subscriber_list, file_name)

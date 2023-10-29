@@ -216,6 +216,8 @@ if __name__== '__main__':
             'WiCS x SHPE: A LOT(ería) to Learn',
             'Navigating FinTech Careers with Barclays and WiCS',
             'Create A Standout Technical Resume with Oscar Health',
+            'GBM 3: Good Luck Charms',
+            'Workathon #3: Spookathon',
             'Total #events attended'
         ]
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]

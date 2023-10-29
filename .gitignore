@@ -2,7 +2,7 @@
 .DS_Store
 
 # folders
-responses
+*_responses
 subscribers
 
 # output files

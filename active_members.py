@@ -10,9 +10,13 @@ def find_all_active_members(attendance_sheet, min_num_events_attended):
     # select rows for members who have attended events for at least N times
     df = df[df['Total #events attended'] >= min_num_events_attended]
 
-    # Only keep email & name columns, and convert it to Email Address,First Name,Last Name columns
-    columns_to_keep = ['Email', 'Name']
+    # Only keep email & name columns (+ year col for temporary use) & rename the columns
+    columns_to_keep = ['Email', 'Name', 'Year']
     df = df[columns_to_keep]
+
+    # Count #active members from each year: 'freshman', 'sophomore', 'junior', 'senior', etc.
+    year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior']
+    year_counts = df['Year'].value_counts().reindex(year_order)
 
     # Set email column
     df['Email Address'] = df['Email']
@@ -23,7 +27,10 @@ def find_all_active_members(attendance_sheet, min_num_events_attended):
     df['Last Name'] = first_last_name.str[-1]
 
     # Drop unwanted columns & preserve Email Address,First Name,Last Name columns
-    df.drop(columns=['Name', 'Email'], inplace=True)
+    df.drop(columns=['Name', 'Email', 'Year'], inplace=True)
+
+    # Print #active members from each year
+    print(f'Number of active members from each year: {year_counts}')
 
     return df
     

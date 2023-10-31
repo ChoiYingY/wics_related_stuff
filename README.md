@@ -18,3 +18,9 @@ Usage: python3 search_subscribers.py <event_response_csv>
 <br>Usage: python3 active_freshmen.py <attendance_sheet> <min_num_events_attended>
 
 # Example
+python3 search_subscribers.py responses/GBM1.csv
+<br>Usage: python3 wics_voters_2324.py responses 'Member Attendance'
+<br>Usage: python3 event_attendance.py 'Member Attendance'
+<br>Usage: python3 count_members.py 'Member Attendance' 2
+<br>Usage: python3 active_members.py 'Member Attendance' 2
+<br>Usage: python3 active_freshmen.py 'Member Attendance' 2

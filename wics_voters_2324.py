@@ -209,15 +209,19 @@ if __name__== '__main__':
         # re-arrange dataframe column display order by email, name, year, all events in chronological order (manual input) & total #events attended
         display_col_order = [
             'Email', 'Name', 'Year',
-            'GBM 1: Icebreakers',
+            'GBM #1: Icebreakers',
             'Workathon #1: WiCS-le While You Work!',
             'Fall 2023 Technology & Engineering Mixer',
             'Workathon #2: Study-o Ghibli Night',
             'WiCS x SHPE: A LOT(ería) to Learn',
             'Navigating FinTech Careers with Barclays and WiCS',
             'Create A Standout Technical Resume with Oscar Health',
-            'GBM 3: Good Luck Charms',
+            'GBM #3: Good Luck Charms',
             'Workathon #3: Spookathon',
+            'VIP Luncheon',
+            'GBM #4: Pygame Playhouse - Hopper Hops!',
+            'Workathon #4: Study-a-Latte',
+            'Thanksgiving Potluck',
             'Total #events attended'
         ]
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]

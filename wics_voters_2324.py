@@ -11,7 +11,7 @@ import xlsxwriter
     Edited by Cynthia Lee, Christina Low 2019
     Edited by Arpita Abrol 2020
     Edited by Sammi Lin 2021
-    Edited by Choi Ying Yau 2023-2024
+    Edited by Choi Ying Yau 2023
 '''
 
 __copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
@@ -28,10 +28,9 @@ VOTING_RESULTS = None       # Final dataframe to write to OUTPUT file
         2) 'Last Name'
         3) 'Year'
         4) 'Email'
-    Should be case insensitive here.
 '''
 def validate_file_columns(filename, dataframe):
-    required_columns = ['first name', 'last name', 'year', 'email']
+    required_columns = ['First Name', 'Last Name', 'Year', 'Email']
 
     for column in required_columns:
         if column not in dataframe:
@@ -39,8 +38,7 @@ def validate_file_columns(filename, dataframe):
 
 '''
     Compile names from a given excel file (.xlsx)
-    Assume all sheets have columns names 'First Name', 'Last Name', 'Year', and 'Email'.
-    Should be case insensitive here.
+    Assume all sheets have columns names 'First Name', 'Last Name', 'Year', and 'Email'
 
     Note:
     - If the required column(s) is not found from excel sheet, please check all column names from current excel sheet when you receive such error!
@@ -50,28 +48,23 @@ def get_data_from(file):
     names = VOTING_RESULTS['Name'].values
     years = VOTING_RESULTS['Year'].values
 
-    # Read excel sheet as dataframe
+    # Read excel sheet as dataframe & validate its required columns' existence
     df = pd.read_excel(file)
-
-    # Convert all column names to lowercase
-    df.columns = df.columns.str.lower()
-
-    # Validate its required columns' existence
     validate_file_columns(file, df)
     
     for i in df.index:
         # Obtain student first name, last name to create capitalized full name
-        first_name = df['first name'][i].strip().title()
-        last_name = df['last name'][i].strip().title()
+        first_name = df['First Name'][i].strip().title()
+        last_name = df['Last Name'][i].strip().title()
         full_name = first_name + ' ' + last_name
 
         # Obtain student email & use it to find its corresponding position in result array
-        email_address = df['email'][i].strip().lower()
+        email_address = df['Email'][i].strip().lower()
         index = emails.index(email_address.lower())
 
         # Only update name / year of a student if such information hasn't set up for them
         names[index] = full_name if not names[index] else names[index]
-        years[index] = df['year'][i].strip() if not years[index] else years[index]
+        years[index] = df['Year'][i].strip() if not years[index] else years[index]
 
     # Store & update information
     VOTING_RESULTS['Name'] = names
@@ -79,8 +72,7 @@ def get_data_from(file):
 
 '''
     Compile emails from a given excel file (.xlsx)
-    Assume all sheets have column name 'Email'.
-    Should be case insensitive here.
+    Assume all sheets have column name 'Email'
 
     Note:
     - If 'Email' column is not found from excel sheet, please check column name for emails from current excel sheet when you receive such error!
@@ -90,16 +82,12 @@ def get_emails_from(file):
 
     # Read excel sheet as dataframe & validate if column 'Email' exists
     df = pd.read_excel(file)
-
-    # Convert all column names to lowercase
-    df.columns = df.columns.str.lower()
-
-    if 'email' not in df:
+    if 'Email' not in df:
         raise Exception(f"'Email' column not found from file named '{file}'.\n-> Possible reasons: the column doesn't exist / might have extra space(s) / capitalization problems in name, or it simply has a different name (e.g. Email Address).")
  
     # Obtain & store each unique student email
     for i in df.index:
-        email_address = df['email'][i].strip().lower()
+        email_address = df['Email'][i].strip().lower()
         if email_address == None:
             break
         if email_address not in emails:
@@ -147,18 +135,13 @@ def populate_attendance_for(file):
 
     print(f'Processing event: {event_name}...')
 
-    # Read excel sheet as dataframe
+    # Read excel sheet as dataframe & validate its required columns' existence
     df = pd.read_excel(file)
-
-    # Convert all column names to lowercase
-    df.columns = df.columns.str.lower()
-
-    # Validate its required columns' existence
     validate_file_columns(file, df)
 
     # Set column to collected values
     for i in df.index:
-        email_address = df['email'][i].strip().lower()
+        email_address = df['Email'][i].strip().lower()
         attendance[emails.index(email_address)] = 1
 
     # Set column to collected values
@@ -241,21 +224,9 @@ if __name__== '__main__':
             'Thanksgiving Potluck',
             "GBM #5: Hopper's Clay Factory",
             'Workathon #5: Winter WiCSterland',
-            'HopperHacks Bootcamp Week: ChatGPT Workshop',
-            'HopperHacks Bootcamp Week: Intro to Hardware Workshop',
-            'HopperHacks Bootcamp Week: Intro to 3D Modeling Workshop',
-            'HopperHacks Bootcamp Week: Intro to Web Development Workshop',
-            'HopperHacks: UIUX Workshop',
-            'HopperHacks: Intro to Facial Recognition and Computer Vision Workshop',
-            'HopperHacks: Midnight Clay Madness Workshop',
-            'HopperHacks: Cryptography Workshop',
-            'HopperHacks: Movie Night Workshop',
-            'HopperHacks: Minecraft TNT Launcher',
-            'HopperHacks: Trivia Game',
             'HopperHacks 2024',
             'Total #events attended'
         ]
-        
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]
 
         # Write result to output excel sheet

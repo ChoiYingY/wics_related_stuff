@@ -11,8 +11,14 @@ def addSubscribers(event_response_csv):
     df = pd.read_csv(event_response_csv)
 
     # save email & name of all members who agreed to subscribe
-    df = df[df['Do you want to be added to the WiCS mailing list?'] == 'Yes']
+    if 'Do you want to be added to the WiCS mailing list?' in df:
+        df = df[df['Do you want to be added to the WiCS mailing list?'] == 'Yes']
+    else:
+        df = df[df['Would you like to be added to the WiCS mailing list?'] == 'Yes']
+    
     df.rename(columns={'Email': 'Email Address'}, inplace=True)
+    df.rename(columns={'First name': 'First Name'}, inplace=True)
+    df.rename(columns={'Last name': 'Last Name'}, inplace=True)
     df = df[['Email Address', 'First Name', 'Last Name']]
 
     return df
@@ -29,6 +35,15 @@ def saveSubscriberContact(subscriber_list, file_name):
     subscriber_list.to_csv(output_csv_file_path, index=False)
     print('All future subscriber contacts have been saved.')
 
+# Obtain array of all csv files under given directory name
+def getCSVs(csv_dir):
+    # Get all csv files from the dir
+    files = [
+            f for f in os.listdir(csv_dir)
+            if os.path.isfile(os.path.join(csv_dir, f)) and
+            f.endswith('.csv')
+        ]
+    return files
 '''
     Main function to save subscribers' contact based on response csv file
 '''
@@ -37,9 +52,16 @@ if __name__ == '__main__':
         print('Usage: python3 search_subscribers.py <event_response_csv>')
         exit(1)
     else:
-        event_response_csv = sys.argv[1].strip()
-        file_path = event_response_csv.split('.')[0].strip()
-        file_name = file_path.split('/')[-1].strip()
-        subscriber_list = addSubscribers(event_response_csv)
-        print(f'\nnew_subscriber_list:\n{subscriber_list}\n')
-        saveSubscriberContact(subscriber_list, file_name)
+        # Get directory consisting all event responses from arg
+        csv_dir = sys.argv[1].strip()
+
+        # Get all CSVs from there
+        files = getCSVs(csv_dir)
+
+        # read & search from each of them
+        for event_response_csv in files:
+            file_path = event_response_csv.split('.')[0].strip()
+            file_name = file_path.split('/')[-1].strip()
+            subscriber_list = addSubscribers(os.path.join(csv_dir, event_response_csv))
+            print(f'\nnew_subscriber_list:\n{subscriber_list}\n')
+            saveSubscriberContact(subscriber_list, file_name)

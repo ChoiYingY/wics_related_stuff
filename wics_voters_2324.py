@@ -225,6 +225,13 @@ if __name__== '__main__':
             "GBM #5: Hopper's Clay Factory",
             'Workathon #5: Winter WiCSterland',
             'HopperHacks 2024',
+            'GBM #1: Minigame Madness',
+            "Workathon #1: Cupid's Classroom",
+            "GBM #2: GuessHER: Who's on Your Head",
+            'Workathon #2: Spring Into Productivity',
+            'Research Luncheon',
+            'Ladies at the Top',
+            'Workathon #3: Minute to win it March',
             'Total #events attended'
         ]
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]

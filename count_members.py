@@ -4,7 +4,7 @@ import pandas as pd
 '''
     Global var: order of years
 '''
-year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior']
+year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
 
 
 '''
@@ -13,7 +13,7 @@ year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior']
 def count_general_body_members_from_each_year(attendance_sheet):
     df = pd.read_excel(attendance_sheet, sheet_name='Active Roster')
     
-    # Count # members from each year: 'freshman', 'sophomore', 'junior', 'senior', etc.
+    # Count # members from each year: 'freshman', 'sophomore', 'junior', 'senior', 'graduate', etc.
     year_counts = df['Year'].value_counts().reindex(year_order)
 
     # Print # members from each year

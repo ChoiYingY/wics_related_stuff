@@ -2,6 +2,15 @@ import sys
 import pandas as pd
 
 '''
+    Helper script to compile all active members.
+
+    Created by Choi Ying Yau, 2023
+'''
+
+__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+
+
+'''
     Helper function to find name & email of all active members based on total number of events they have attended
 '''
 def find_all_active_members(attendance_sheet, min_num_events_attended):

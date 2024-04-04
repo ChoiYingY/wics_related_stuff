@@ -2,6 +2,15 @@ import sys
 import pandas as pd
 
 '''
+    Helper script to compile all active freshmen for running Fall Freshmen ECM.
+
+    Created by Choi Ying Yau, 2023
+'''
+
+__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+
+
+'''
     Helper function to find name & email of all active members who are freshmen
 '''
 def find_all_active_freshmen(attendance_sheet, min_num_events_attended):

@@ -4,8 +4,14 @@ import os
 import pandas as pd
 
 '''
-    Helper functions
+    Helper script to search all members who say yes when asked to be added on mail list.
+
+    Created by Choi Ying Yau, 2023
 '''
+
+__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+
+
 # Read response & save a contact list of students who wants to subscribe WiCS newsletter
 def addSubscribers(event_response_csv):
     df = pd.read_csv(event_response_csv)

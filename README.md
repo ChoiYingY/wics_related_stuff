@@ -8,6 +8,7 @@ Purpose of each Python file:
     <li>count_members.py is for counting all general body members & active members each year.</li>
     <li>active_members.py is for keeping track of all WiCS active members who have attended at least N events</li>
     <li>active_freshmen.py is for keeping track of all WiCS active members who are freshmen & have attended at least N events</li>
+    <li>check_election_vote.py is for count all votes from eligible active members who don't violate voting rules.</li>
 </ol>
 
 <br>*Note: output of wics_voters.py will be the attendance_sheet used in other .py file, ex. event_attendance, count_members, active_members, etc.
@@ -20,6 +21,7 @@ Usage: python3 search_subscribers.py <event_response_csv_directory>
 <br>Usage: python3 count_members.py <attendance_sheet> <min_num_events_attended>
 <br>Usage: python3 active_members.py <attendance_sheet> <min_num_events_attended>
 <br>Usage: python3 active_freshmen.py <attendance_sheet> <min_num_events_attended>
+<br>Usage: python3 check_election_vote.py <voting_response_xlsx>
 
 # Example
 python3 search_subscribers.py csv_responses
@@ -29,3 +31,4 @@ python3 search_subscribers.py csv_responses
 <br>python3 count_members.py 'Member Attendance.xlsx' 2
 <br>python3 active_members.py 'Member Attendance.xlsx' 2
 <br>python3 active_freshmen.py 'Member Attendance.xlsx' 2
+<br>python3 check_election_vote.py 'President Voting Form (Responses).xlsx'

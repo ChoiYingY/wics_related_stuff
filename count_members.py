@@ -2,10 +2,13 @@ import sys
 import pandas as pd
 
 '''
-    Global var: order of years
-'''
-year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
+    Helper script to count all general body members + active members.
 
+    Created by Choi Ying Yau, 2023
+'''
+
+__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
 
 '''
     Helper function to count all general body members who have attended WiCS event(s)

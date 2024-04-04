@@ -11,10 +11,10 @@ import xlsxwriter
     Edited by Cynthia Lee, Christina Low 2019
     Edited by Arpita Abrol 2020
     Edited by Sammi Lin 2021
-    Edited by Choi Ying Yau 2023
+    Edited by Choi Ying Yau 2023-2024
 '''
 
-__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+__copyright__  = 'Copyright 2023-24, Women in Computer Science(WiCS) @ SBU'
 
 ATTENDANCE_DIR = ''         # Set as command line arg[1]
 OUTPUT = ''                 # Set as command line arg[2]

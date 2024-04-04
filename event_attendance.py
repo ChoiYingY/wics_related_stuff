@@ -2,8 +2,14 @@ import pandas as pd
 import sys
 
 '''
-    Helper function to count all event attendance
+    Helper script to count all event attendance.
+
+    Created by Choi Ying Yau, 2023
 '''
+
+__copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
+
+
 def count_event_attendance(attendance_sheet):
     # read all event columns from given attendance_sheet
     df = pd.read_excel(attendance_sheet, sheet_name='Active Roster')

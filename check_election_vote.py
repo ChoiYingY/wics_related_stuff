@@ -2,6 +2,17 @@ import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 
+'''
+    Helper script to count vote & remove votes that violate our regulations:
+        - not active member
+        - cannot vote for ECM for over 3 person
+
+   Created by Choi Ying Yau, 2024
+'''
+
+__copyright__  = 'Copyright 2024, Women in Computer Science(WiCS) @ SBU'
+
+
 # set up global var: mapping for vote result in (voted_name, freq) pair
 result = {}
 
@@ -65,7 +76,7 @@ def plot(title, candidates, num_votes):
 '''
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('Usage: python3 search_subscribers.py <event_response_csv>')
+        print('Usage: python3 check_election_vote.py <voting_response_xlsx>')
         exit(1)
     else:
         # Read list of active member + voting responses

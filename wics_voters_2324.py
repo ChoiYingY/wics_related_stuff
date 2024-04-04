@@ -231,6 +231,7 @@ if __name__== '__main__':
             'Workathon #2: Spring Into Productivity',
             'Research Luncheon',
             'Ladies at the Top',
+            'Cafecito',
             'Workathon #3: Minute to win it March',
             'Total #events attended'
         ]

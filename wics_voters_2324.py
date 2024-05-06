@@ -233,6 +233,12 @@ if __name__== '__main__':
             'Ladies at the Top',
             'Cafecito',
             'Workathon #3: Minute to win it March',
+            'GBM #4: Election Day',
+            'Workathon #4: Row Row Row Your BOAT-athon',
+            'GBM #5: Figma It Out!',
+            'WiCS X SBCS : Among Us in Real Life',
+            'MUFG Info Session',
+            'Engineering Ball',
             'Total #events attended'
         ]
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]

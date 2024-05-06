@@ -8,7 +8,7 @@ import pandas as pd
 '''
 
 __copyright__  = 'Copyright 2023, Women in Computer Science(WiCS) @ SBU'
-year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
+year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate', 'Unknown']
 
 '''
     Helper function to count all general body members who have attended WiCS event(s)

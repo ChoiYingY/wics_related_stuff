@@ -55,7 +55,7 @@ def getCSVs(csv_dir):
 '''
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('Usage: python3 search_subscribers.py <event_response_csv>')
+        print('Usage: python3 search_newsletter_subscribers.py <event_response_csv>')
         exit(1)
     else:
         # Get directory consisting all event responses from arg

@@ -76,7 +76,7 @@ def plot(title, candidates, num_votes):
 '''
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('Usage: python3 check_election_vote.py <voting_response_xlsx>')
+        print('Usage: python3 count_election_vote.py <voting_response_xlsx>')
         exit(1)
     else:
         # Read list of active member + voting responses

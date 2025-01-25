@@ -111,22 +111,18 @@ def populate_attendance_for(file):
 
     # Obtain file name (excluding directory, ex. dir/file.xlsx -> file.xlsx)
     file_name = file.split('/')[-1]
-
-    # Set up regular expression pattern to parse event name (default: everything up to '.xlsx' = event_name)
-    pattern = r'^(.*?)\.xlsx'
     
-    # Parse event name by regular expression if it contains 'Copy of' / '(Responses)'
-    if 'copy of' in file_name.lower() and '(responses)' in file_name.lower():
-        pattern = r'^copy of\s*(.*?)\s*\(responses\).*?\.xlsx'
-    elif 'copy of' in file_name.lower():
-        pattern = r'^copy of\s*(.*?)\s*\.xlsx'
-    elif '(responses)' in file_name.lower():
-        pattern = r'^(.*?)\s*\(responses\).*?\.xlsx'
+    # Make sure the file ends with '.xlsx'
+    if not file_name.endswith('.xlsx'):
+        raise Exception(f"File '{file_name}' does not have an '.xlsx' extension.")
+
+    # Set up regular expression pattern to parse event name (<- <event_name>.xlsx)
+    pattern = r'^(?:copy of\s*)?(.*?)(?:\s*\(responses\))?\s*\.xlsx$'
 
     # Obtain the desired group '(.*?)' & set it as event_name based on regex pattern
     match = re.search(pattern, file_name, re.IGNORECASE)
     if match:
-        event_name = match.group(1)
+        event_name = match.group(1).strip()
     else:
         raise Exception(f"failed to parse event name by regex. Please check name format for current file '{file}'.")
 
@@ -206,9 +202,12 @@ if __name__== '__main__':
         # Sort result by total #events attended in descending order
         VOTING_RESULTS = VOTING_RESULTS.sort_values(by='Total #events attended', ascending=False)
 
-        # re-arrange dataframe column display order by email, name, year, all events in chronological order (manual input) & total #events attended
+        ### [Optional part] ###
+        # Please feel free to remove this part or reference 'wics_voters_2324.py'
+        # Re-arrange dataframe column display order by email, name, year, all events in chronological order (manual input) & total #events attended
         display_col_order = [
             'Email', 'Name', 'Year',
+            # Enter event name in order - ex 'GBM#1: title', 'Workathon#1: title', ...
             'GBM #1: Icebreakers',
             'Workathon #1: WiCS-le While You Work!',
             'Fall 2023 Technology & Engineering Mixer',
@@ -242,6 +241,7 @@ if __name__== '__main__':
             'Total #events attended'
         ]
         VOTING_RESULTS = VOTING_RESULTS[display_col_order]
+        ### [End of optional part] ###
 
         # Write result to output excel sheet
         writer = pd.ExcelWriter(OUTPUT, engine='xlsxwriter')

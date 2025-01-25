@@ -3,18 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 '''
-    Helper script to count vote & remove votes that violate our regulations:
-        - not active member
-        - cannot vote for ECM for over 3 person
+    Helper script to count Votes @ WiCS Election.
 
-   Created by Choi Ying Yau, 2024
+    Created by Choi Ying Yau 2023-2024
 '''
 
-__copyright__  = 'Copyright 2024, Women in Computer Science(WiCS) @ SBU'
+__copyright__  = 'Copyright 2023-24, Women in Computer Science(WiCS) @ SBU'
 
 
 # set up global var: mapping for vote result in (voted_name, freq) pair
-result = {}
+RESULT = {}
 
 '''
     Helper function to read through current voter's choice (who they voted for) & update result map
@@ -28,10 +26,10 @@ def process_vote(is_voting_ecm, choice):
         if(len(choices) <= 3):
             for choice in choices:
                 choice = choice.strip()
-                result[choice] = 1 if (choice not in result) else result[choice]+1
+                RESULT[choice] = 1 if (choice not in RESULT) else RESULT[choice]+1
     else:
         # else add 1 vote to the person
-        result[choice] = 1 if (choice not in result) else result[choice]+1
+        RESULT[choice] = 1 if (choice not in RESULT) else RESULT[choice]+1
 
 
 '''
@@ -76,7 +74,7 @@ def plot(title, candidates, num_votes):
 '''
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('Usage: python3 count_election_vote.py <voting_response_xlsx>')
+        print('Usage: python3 check_election_vote.py <event_response_csv>')
         exit(1)
     else:
         # Read list of active member + voting responses
@@ -85,13 +83,13 @@ if __name__ == '__main__':
         voting_df = pd.read_excel(voting_form_name)
 
         # Determining if we are voting for ecm or not
-        is_voting_ecm = "Event Committee Member" in voting_form_name
+        is_voting_ecm = ("event committee member" in voting_form_name.lower()) or ("ecm" in voting_form_name.lower())
 
         # Read through all responses to store voting result for current position
         parse_response(is_voting_ecm, voting_df)
 
         # After parsing all, sort vote result after going through all responses
-        sorted_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+        sorted_result = sorted(RESULT.items(), key=lambda x: x[1], reverse=True)
         sorted_result, sorted_counts = zip(*sorted_result)
 
         # Print winning result

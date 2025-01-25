@@ -25,8 +25,9 @@ def find_all_active_members(attendance_sheet, min_num_events_attended):
 
     # Count #active members from each year: 'freshman', 'sophomore', 'junior', 'senior', 'graduate', etc.
     year_order = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
-    year_counts = df['Year'].value_counts().reindex(year_order)
-
+    year_counts = df['Year'].value_counts().reindex(year_order, fill_value=0)
+    year_counts = year_counts.astype(int)
+    
     # Set email column
     df['Email Address'] = df['Email']
 

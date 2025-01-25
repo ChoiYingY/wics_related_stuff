@@ -1,3 +1,6 @@
+# Details
+For reference, check for [this link](https://docs.google.com/document/d/1wkpVkWk9aVGkODYST-IPa8F9T6kLyfreNND9zxwRTWY/edit?usp=sharing)
+
 # About
 Purpose of each Python file:
 <ol>
